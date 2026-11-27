@@ -10,6 +10,7 @@ backtest engine.
 from __future__ import annotations
 
 import json
+import logging
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -49,6 +50,7 @@ from pquant.v2.store import (
 )
 
 MANIFEST_NAME = "p1_manifest.json"
+logger = logging.getLogger("pquant.v2.pipeline")
 
 
 def collect_v2(
@@ -365,6 +367,7 @@ def _collect_funding(
     for month in _iter_months(start, end):
         stamp = month.strftime("%Y-%m")
         path = funding_archive_path(symbol, stamp)
+        logger.info("funding archive %s", path)
         fetched = archive.fetch(path)
         if fetched is None:
             continue
@@ -426,6 +429,7 @@ def _load_spot_archives(
     for month in _iter_months(start, end):
         stamp = month.strftime("%Y-%m")
         path = spot_kline_archive_path(symbol, interval, stamp, monthly=True)
+        logger.info("spot archive %s", path)
         fetched = archive.fetch(path)
         if fetched is None:
             continue

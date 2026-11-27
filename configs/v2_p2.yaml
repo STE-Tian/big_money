@@ -1,0 +1,131 @@
+# Big Money V2 P2 — pre-registered prediction and evaluation protocol.
+# Written before the training run. Do not retune these values on a test fold.
+# This is not a position-sizing system (that is P3) and it does not open LIVE.
+#
+# Decision clock is the closed 4h spot bar. A signal at the close of bar t is
+# filled by the V1 engine at the open of bar t+1. Horizons below are counts of
+# those 4h bars: 4h = 1, 12h = 3, 24h = 6.
+#
+# The trading rule uses the 24h expected simple return. One round trip of the
+# V1 base cost is 2 * (0.001 + 0.0005) = 0.003. Weight is 1 only when that
+# 24h forecast is strictly greater than 0.003, otherwise 0. A 4h forecast is
+# still produced and scored, but it is not the trading input: requiring a
+# single 4h bar to clear a full round trip would collapse the rule to cash
+# without reading the forecast. The position may be held or closed on later
+# 4h bars; this rule does not amortize costs and does not size between 0 and 1.
+
+app:
+  trading_mode: research
+  live_trading_enabled: false
+
+model_version: v2.p2
+seed: 157
+decision_interval: 4h
+rule_horizon: 24h
+
+horizons_bars:
+  4h: 1
+  12h: 3
+  24h: 6
+
+# Point-in-time columns from the P1 4h feature file. Raw prices and volumes
+# are excluded. Null rows are dropped, not filled.
+feature_columns:
+  - taker_imbalance
+  - taker_imbalance_roll
+  - taker_buy_exceeds_sell_roll
+  - taker_imbalance_quote
+  - taker_imbalance_quote_roll
+  - log_return
+  - volume_ratio
+  - price_volume_divergence
+  - price_up_volume_not
+  - price_volume_corr
+  - funding_rate
+  - funding_rate_times_return
+  - price_down_funding_high
+  - eth_btc_log_return
+  - eth_btc_relative_strength
+  - btc_up_ethbtc_weak
+  - btc_up_ethbtc_weak_roll
+  - realized_vol
+  - realized_vol_annualized
+
+# Latest 1h feature with available_time <= the 4h close, tolerance 1h.
+# A 1h bar that closes after the 4h bar is not visible.
+hourly_asof_columns:
+  - log_return
+  - taker_imbalance
+  - taker_imbalance_roll
+  - volume_ratio
+  - price_volume_corr
+  - realized_vol
+
+walk_forward:
+  # 4h bars. 2190 = 365 days, 540 = 90 days.
+  # First-fold hyperparameters are frozen for every later fold.
+  train_min_bars: 2190
+  validation_bars: 540
+  test_bars: 540
+  step_bars: 540
+  embargo_bars: 6
+
+hmm:
+  # State count is chosen on each training slice by BIC. Ties take the
+  # smaller count. States are ordered by ascending training emission mean of
+  # log_return so column indices line up. That order is not a bull/bear name.
+  criterion: bic
+  state_grid: [2, 3, 4]
+  max_iter: 40
+  tol: 0.0001
+  n_restarts: 3
+  observation_columns:
+    - log_return
+    - realized_vol
+  variance_floor: 0.0001
+
+linear:
+  # Logistic regression is the probability baseline. Ridge, on the same
+  # purged rows, is the paired linear expected-return model. Logistic
+  # classification does not emit E[r].
+  C: [0.1, 1.0, 10.0]
+  alpha: [0.1, 1.0, 10.0]
+  max_iter: 500
+
+lightgbm:
+  learning_rate: 0.05
+  n_estimators: 100
+  num_leaves: [15, 31]
+  min_child_samples: [50, 200]
+  feature_fraction: 0.8
+  lambda_l2: [1.0, 10.0]
+  quantile_low: 0.1
+  quantile_high: 0.9
+  num_threads: 4
+
+evidence:
+  # Enough evidence only if the primary path clears every item below.
+  # A miss means the research conclusion is to stay in cash.
+  # This is not the P4 DSR/PBO gate.
+  rule: lightgbm_with_hmm_positive_net_both_symbols
+  primary_model: lightgbm
+  primary_feature_set: with_hmm
+  stress_scenario: stress_2
+
+# Already inspected by the V1 backtest. Usable for development.
+# Not a fresh untouched V2 test set. The end is exclusive.
+v1_seen_start: "2025-01-18T00:00:00Z"
+v1_seen_end: "2026-11-27T00:00:00Z"
+
+symbols:
+  - BTCUSDT
+  - ETHUSDT
+
+shap_crosscheck_rows: 64
+
+safety:
+  allow_leverage: false
+  allow_short: false
+  allow_withdrawals: false
+  allow_live_orders: false
+  trade_perpetual: false
