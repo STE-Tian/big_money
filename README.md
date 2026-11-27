@@ -6,7 +6,7 @@ Personal Quant AI is a local research workbench for Binance Spot public market d
 
 默认 `TRADING_MODE=research`。公开行情不需要 API Key，也不要填写 API Secret。
 
-V1 仍是传统策略基线：日线、收盘发信号、下一根开盘成交。Big Money V2 的正式规格在 [`docs/V2_SPEC.md`](docs/V2_SPEC.md)。当前代码只增加了 V2 的 P1 数据层（1h/4h 现货与资金费率特征）。P2–P6 的模型、仓位、PBO/DSR、Agent 扩展和模拟盘没有实现。资金费率只作为研究特征，不交易永续合约。
+V1 仍是传统策略基线：日线、收盘发信号、下一根开盘成交。Big Money V2 的正式规格在 [`docs/V2_SPEC.md`](docs/V2_SPEC.md)。P1 是 1h/4h 现货与资金费率特征。P2 在这些特征上训练 Logistic 基线、LightGBM 和未标注 HMM，并用一条预先登记的只做多或持有现金规则，走 V1 的下一根开盘成交来和买入持有、SMA、动量、现金比较。P3–P6 的动态仓位、PBO/DSR、Agent 扩展和模拟盘没有实现。资金费率只作为研究特征，不交易永续合约。P2 的结论在 [`docs/V2_P2_REPORT.md`](docs/V2_P2_REPORT.md)。2025-01-18 至 2026-11-26 已经在 V1 中看过，不是 V2 的未触碰测试集。
 
 ## 环境
 
@@ -88,7 +88,7 @@ uv run streamlit run src/pquant/dashboard/app.py
 
 V1 的 `configs/app.yaml` 仍然只采集日线。V2 使用 `configs/v2_data.yaml`：默认研究模式，`LIVE` 关闭，不需要 API Secret。窗口长度写在该文件的 `features.windows` 里。
 
-规格、特征公式、锁定约束和尚未实现的 P2–P6 见 [`docs/V2_SPEC.md`](docs/V2_SPEC.md)。
+规格、特征公式和锁定约束见 [`docs/V2_SPEC.md`](docs/V2_SPEC.md)。P3–P6 仍未实现。
 
 下面三组命令在 Windows PowerShell、CMD 和 Linux 上相同，只是换行符不同。先进入仓库根目录。`--start` 含该开盘时间，`--end` 不含该开盘时间，并且必须落在 1h 与 4h 的 UTC 边界上。
 
@@ -107,6 +107,23 @@ uv run python scripts/build_v2_features.py
 原始 Parquet 在 `data/parquet/`，不提交。行数、校验和、数据集哈希与质量结论在 `data/reports/v2/p1_manifest.json`。2026-10 这一个窗口是流水线验收样本，不是全历史，也不是 V2 的未触碰测试集。
 
 V1 日线回测命令保持原样，不需要先跑 V2。
+
+## Big Money V2 P2
+
+P2 读取上面的特征库，不重新实现成交。规则、网格、种子和证据门槛都在 `configs/v2_p2.yaml`，要在看到结果之前就写好。决策周期是 4h：信号在收盘形成，V1 引擎在下一根开盘成交。基准成本仍是单边手续费 0.001、滑点 0.0005，压力披露使用 `configs/costs.yaml` 的 `stress_2`。初始资金 10,000 USDT。仓位只有 0 或 1。
+
+一个月的 P1 样本不够训练。下面这组窗口长于单月，并且落在 1h/4h 边界上。`--end` 不含该时刻。
+
+```powershell
+uv run python scripts/collect_v2.py --start 2020-01-01T00:00:00Z --end 2026-11-27T00:00:00Z
+uv run python scripts/validate_v2.py
+uv run python scripts/build_v2_features.py
+uv run python scripts/train_v2_p2.py
+```
+
+`fapi.binance.com` 若返回 HTTP 451，采集会记下来并不绕过，资金费率改用 `data.binance.vision` 的月度档案。原始 Parquet 仍不提交。训练写出 `docs/V2_P2_REPORT.md`、`data/reports/v2/p2_summary.json`，以及被 git 忽略的 `data/reports/v2/p2_predictions.parquet`。
+
+2020-01-01 至 2026-11-26 这一次运行里，预先登记的 LightGBM 规则没有通过证据门槛。它在 4h 样本上成交很多次，扣除基准成本后的净值远低于买入持有，也低于现金。研究结论是保持现金。这不是实盘建议。不要把与 2025-01-18 至 2026-11-26 重叠的一段写成新的测试集。数字、哈希和复现命令在 [`docs/V2_P2_REPORT.md`](docs/V2_P2_REPORT.md)。
 
 ## 测试
 
