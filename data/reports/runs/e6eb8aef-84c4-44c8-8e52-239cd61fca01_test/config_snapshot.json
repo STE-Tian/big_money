@@ -1,0 +1,24 @@
+{
+  "run_id": "e6eb8aef-84c4-44c8-8e52-239cd61fca01",
+  "strategy_id": "momentum",
+  "strategy_version": "1.0.0",
+  "params": {
+    "window": 60
+  },
+  "symbol": "ETHUSDT",
+  "interval": "1d",
+  "start": "2017-08-17T00:00:00+00:00",
+  "end": "2026-11-26T23:59:59.999000+00:00",
+  "dataset_hash": "fe05ccf267a13b604b5e3914338ede64a4b1dc8b5a53217e33fb53dc1887117c",
+  "code_commit": "7e528ffe394e1072a8d4373bc29156602b461007",
+  "initial_cash": "10000",
+  "fee_rate_per_side": "0.001",
+  "slippage_rate_per_side": "0.0005",
+  "risk_free_rate": "0",
+  "signal_execution": "next_bar_open",
+  "force_close_at_end": false,
+  "opening_target": null,
+  "annualization": "sqrt(365) for 1d, sqrt(365*6) for 4h, sqrt(365*24) for 1h",
+  "data_origin": "binance_rest:https://data-api.binance.vision",
+  "segment": "test"
+}

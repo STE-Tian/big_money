@@ -1,0 +1,4 @@
+strategy_id,scenario,fee_rate_per_side,slippage_rate_per_side,full_total_return,full_cagr,full_sharpe,full_max_drawdown,full_fill_count,test_total_return,test_sharpe,test_max_drawdown,test_fill_count
+cash,base,0.001,0.0005,0.0,0.0,,0.0,0.0,0.0,,0.0,0.0
+cash,stress_1,0.0015,0.001,0.0,0.0,,0.0,0.0,0.0,,0.0,0.0
+cash,stress_2,0.002,0.002,0.0,0.0,,0.0,0.0,0.0,,0.0,0.0

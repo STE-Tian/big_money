@@ -1,0 +1,17 @@
+metric_name,metric_value,metric_unit,segment
+total_return,0.10100731858582868,ratio,test
+cagr,0.053168054231932826,ratio_365_day,test
+annualized_volatility,0.2630179865755424,stdev_times_sqrt_365,test
+sharpe_ratio,0.3276205716950913,mean_excess_over_sample_stdev_sqrt_365_rf_0.0,test
+sortino_ratio,0.49739386747570513,downside_population_target_rf_per_bar_0.0,test
+max_drawdown,-0.2897627671370334,equity_over_running_peak_minus_one,test
+calmar_ratio,0.1834882195433646,ratio,test
+win_rate,0.625,ratio_of_closed_round_trips,test
+profit_factor,1.3800111893212963,ratio,test
+exposure,0.5265486725663717,fraction_of_bars_with_positive_quantity,test
+turnover,15.62365674642183,traded_notional_over_mean_equity,test
+fill_count,16.0,fills,test
+closed_trade_count,8.0,flat_to_flat_round_trips,test
+fee_paid,155.01929160333654,quote_asset,test
+slippage_cost,77.50995645227675,quote_notional_vs_raw_open_embedded_in_fills,test
+final_equity,11010.073185858288,quote_asset,test

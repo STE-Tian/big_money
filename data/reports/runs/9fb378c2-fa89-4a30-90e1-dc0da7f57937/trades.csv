@@ -1,0 +1,2 @@
+symbol,strategy_id,side,signal_time,fill_time,raw_open,fill_price,quantity,fee,slippage_cost,target_weight,cash_after,quantity_after
+BTCUSDT,buy_and_hold,BUY,,2017-08-17T00:00:00+00:00,4261.48000000,4263.610740000000,2.34308678,9.99000995996001720000000,4.99250872561720000000,1,0.00003008002278280000000,2.34308678

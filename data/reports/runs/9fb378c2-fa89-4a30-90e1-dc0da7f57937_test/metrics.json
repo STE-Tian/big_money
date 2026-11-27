@@ -1,0 +1,82 @@
+{
+  "total_return": {
+    "name": "total_return",
+    "value": -0.41883268244895044,
+    "unit": "ratio"
+  },
+  "cagr": {
+    "name": "cagr",
+    "value": -0.25335872575578167,
+    "unit": "ratio_365_day"
+  },
+  "annualized_volatility": {
+    "name": "annualized_volatility",
+    "value": 0.4312071592103852,
+    "unit": "stdev_times_sqrt_365"
+  },
+  "sharpe_ratio": {
+    "name": "sharpe_ratio",
+    "value": -0.4617447899609712,
+    "unit": "mean_excess_over_sample_stdev_sqrt_365_rf_0.0"
+  },
+  "sortino_ratio": {
+    "name": "sortino_ratio",
+    "value": -0.6488924062481786,
+    "unit": "downside_population_target_rf_per_bar_0.0"
+  },
+  "max_drawdown": {
+    "name": "max_drawdown",
+    "value": -0.5297176191945678,
+    "unit": "equity_over_running_peak_minus_one"
+  },
+  "calmar_ratio": {
+    "name": "calmar_ratio",
+    "value": -0.47829016172996464,
+    "unit": "ratio"
+  },
+  "win_rate": {
+    "name": "win_rate",
+    "value": null,
+    "unit": "no_closed_trades"
+  },
+  "profit_factor": {
+    "name": "profit_factor",
+    "value": null,
+    "unit": "no_closed_trades"
+  },
+  "exposure": {
+    "name": "exposure",
+    "value": 1.0,
+    "unit": "fraction_of_bars_with_positive_quantity"
+  },
+  "turnover": {
+    "name": "turnover",
+    "value": 1.1814088275958008,
+    "unit": "traded_notional_over_mean_equity"
+  },
+  "fill_count": {
+    "name": "fill_count",
+    "value": 1.0,
+    "unit": "fills"
+  },
+  "closed_trade_count": {
+    "name": "closed_trade_count",
+    "value": 0.0,
+    "unit": "flat_to_flat_round_trips"
+  },
+  "fee_paid": {
+    "name": "fee_paid",
+    "value": 9.990009089166138,
+    "unit": "quote_asset"
+  },
+  "slippage_cost": {
+    "name": "slippage_cost",
+    "value": 4.99250829043785,
+    "unit": "quote_notional_vs_raw_open_embedded_in_fills"
+  },
+  "final_equity": {
+    "name": "final_equity",
+    "value": 5811.673175510496,
+    "unit": "quote_asset"
+  }
+}
