@@ -1,0 +1,98 @@
+# Big Money V2 P1 data layer.
+# Research mode only. LIVE is rejected. Funding rates are features, not orders.
+# Window lengths below are reproducible research parameters. They are not
+# optimized position-sizing defaults and they are not a permission to trade.
+
+app:
+  trading_mode: research
+  live_trading_enabled: false
+
+market_data:
+  exchange: binance
+  market_type: spot
+  # Spot REST. Same hosts as V1. Checked 2026-11-27.
+  base_url: https://data-api.binance.vision
+  fallback_base_url: https://api.binance.com
+  # Public file archive. Spot klines and USD-M fundingRate files only.
+  archive_base_url: https://data.binance.vision
+  symbols:
+    - BTCUSDT
+    - ETHUSDT
+  intervals:
+    - 1h
+    - 4h
+  # ETH/BTC relative strength is computed on these frequencies.
+  # 1d is aggregated from six closed 4h bars. It is not the V1 daily backtest file.
+  relative_strength_intervals:
+    - 4h
+    - 1d
+  # Finite start. A null end means "through the latest closed bar at server time".
+  # Pass --start and --end for a bounded, reproducible window.
+  history_start: "2024-01-01T00:00:00Z"
+  history_end: null
+  exclude_open_candle: true
+  klines_limit: 1000
+  request_timeout_seconds: 30
+  max_retries: 5
+  request_pause_seconds: 0.25
+  # Windows of this many closed bars or fewer are also re-read from spot REST
+  # so a checksummed archive can be compared with the public API.
+  rest_crosscheck_max_bars: 2000
+
+funding:
+  # Must stay false. The USD-M funding rate is not a traded instrument.
+  tradable: false
+  market_type: usd_m_perpetual
+  # Public market-data host. The client may call only GET /fapi/v1/fundingRate.
+  base_url: https://fapi.binance.com
+  path: /fapi/v1/fundingRate
+  symbols:
+    - BTCUSDT
+    - ETHUSDT
+  # limit <= 200 stays on the shared 500/5min budget documented by the
+  # official USD-M connector. limit above 200 uses the stricter 100/5min budget.
+  limit: 200
+  request_pause_seconds: 0.35
+  request_timeout_seconds: 30
+  max_retries: 4
+
+features:
+  # Labels the example "funding still high while price falls".
+  # This is not a position-sizing default.
+  funding_high_threshold: "0.0001"
+  annualize_realized_vol: true
+  windows:
+    1h:
+      taker_imbalance: 24
+      volume_baseline: 24
+      price_volume_corr: 24
+      relative_strength: 24
+      realized_vol: 24
+    4h:
+      taker_imbalance: 18
+      volume_baseline: 18
+      price_volume_corr: 18
+      relative_strength: 42
+      realized_vol: 18
+    1d:
+      taker_imbalance: 20
+      volume_baseline: 20
+      price_volume_corr: 20
+      relative_strength: 20
+      realized_vol: 20
+
+validation:
+  max_missing_ratio: "0.01"
+
+safety:
+  allow_leverage: false
+  allow_short: false
+  allow_withdrawals: false
+  allow_live_orders: false
+  trade_perpetual: false
+
+storage:
+  parquet_dir: data/parquet
+  raw_dir: data/raw
+  reports_dir: data/reports
+  feature_dir: data/parquet/v2_features

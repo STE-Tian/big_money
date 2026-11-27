@@ -1,0 +1,14 @@
+{
+  "symbol": "BTCUSDT",
+  "rows": 93,
+  "window_rows": 93,
+  "duplicate_rows": 0,
+  "gap_count": 0,
+  "dataset_hash": "c3e6f64fc1ba3be8a72072a9412630ab8bc936822627901547299dfe7dd2d1e4",
+  "tradable": false,
+  "research_feature_only": true,
+  "status": "qualified",
+  "reasons": [],
+  "first_funding_time": "2026-10-01T00:00:00.001000+00:00",
+  "last_funding_time": "2026-10-31T16:00:00+00:00"
+}

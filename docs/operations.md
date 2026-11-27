@@ -9,3 +9,5 @@ If the public API returns HTTP 418, the process stops and writes `data/reports/i
 Logs go to stderr and `logs/pquant.log`. Secret-like `key=value` text is redacted. The log file is gitignored.
 
 The Streamlit dashboard is `uv run streamlit run src/pquant/dashboard/app.py`. Empty panels show 暂无结果 instead of sample numbers.
+
+V2 collection is separate: `scripts/collect_v2.py`, `scripts/validate_v2.py`, and `scripts/build_v2_features.py`. They read `configs/v2_data.yaml` and do not change the daily backtest path. If `fapi.binance.com` returns HTTP 451, leave that error in the report. Do not bypass it. A published funding-rate archive on `data.binance.vision` can still cover a finished month.

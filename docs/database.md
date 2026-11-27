@@ -5,3 +5,5 @@ Market data lives in DuckDB (`data/duckdb/market.duckdb`): `market_candles`, `in
 Research and paper trading share `data/sqlite/research_trading.sqlite`. Research tables include strategies, strategy versions, experiments, backtest runs, metrics, and agent runs. Trading tables include paper accounts, orders, order events, fills, positions, equity snapshots, and risk events. `client_order_id` is unique. Foreign keys are enabled. No table stores an API secret.
 
 Writes for a paper fill, its order status, cash, and position happen in one SQLite transaction.
+
+V2 P1 does not add a trading table. Spot 1h and 4h candles reuse the V1 Parquet candle layout. Funding events are a separate Parquet series, `binance_um_funding_{SYMBOL}.parquet`, with `tradable` false. Feature frames are under `data/parquet/v2_features/`. Derived 1d feature rows are not written to `binance_spot_{SYMBOL}_1d.parquet`. All of these Parquet files stay gitignored. The small quality manifest is `data/reports/v2/p1_manifest.json`.

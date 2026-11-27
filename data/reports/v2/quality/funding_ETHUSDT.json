@@ -1,0 +1,14 @@
+{
+  "symbol": "ETHUSDT",
+  "rows": 93,
+  "window_rows": 93,
+  "duplicate_rows": 0,
+  "gap_count": 0,
+  "dataset_hash": "6321b3ed7f100dfe884f1124a7e58cb6c1f1925b6fe0100173939f8d6f664373",
+  "tradable": false,
+  "research_feature_only": true,
+  "status": "qualified",
+  "reasons": [],
+  "first_funding_time": "2026-10-01T00:00:00.001000+00:00",
+  "last_funding_time": "2026-10-31T16:00:00+00:00"
+}
