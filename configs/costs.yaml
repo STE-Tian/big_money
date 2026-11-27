@@ -1,0 +1,12 @@
+# Research assumptions. These are not Binance's fee schedule for any specific account.
+# 0.10% = 0.001. Edit the strings; the engine reads them as Decimal and never defaults a missing value to zero.
+scenarios:
+  base:
+    fee_rate_per_side: "0.001"
+    slippage_rate_per_side: "0.0005"
+  stress_1:
+    fee_rate_per_side: "0.0015"
+    slippage_rate_per_side: "0.001"
+  stress_2:
+    fee_rate_per_side: "0.002"
+    slippage_rate_per_side: "0.002"

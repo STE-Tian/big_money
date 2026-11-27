@@ -1,0 +1,28 @@
+buy_and_hold:
+  version: "1.0.0"
+  description: >
+    Buy at the first tradable open of the sample and hold spot. No short and no leverage.
+    The decision is known before the first bar, so the fill is the first bar open, not the first close.
+sma_cross:
+  version: "1.0.0"
+  short_window: 20
+  long_window: 50
+  description: >
+    Target weight 1 when SMA(close, short) > SMA(close, long), otherwise 0.
+    The signal is computed after bar t closes and the fill is at the open of bar t+1.
+    No orders during the long-window warm-up.
+momentum:
+  version: "1.0.0"
+  window: 60
+  description: >
+    momentum = close / close.shift(window) - 1. Target weight 1 when momentum > 0, otherwise 0.
+    Signal at the close of bar t, fill at the open of bar t+1. No orders during warm-up.
+cash:
+  version: "1.0.0"
+  description: Hold the quote asset. Modeled return is zero and does not include any yield product.
+
+# Minimum grid required by the v1 spec. short < long is enforced. Test segment is not part of this search.
+robustness:
+  sma_short_windows: [10, 20, 30]
+  sma_long_windows: [50, 100, 150]
+  momentum_windows: [20, 60, 120]

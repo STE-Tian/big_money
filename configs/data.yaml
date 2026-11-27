@@ -1,0 +1,17 @@
+# Market-data collection defaults. app.yaml is authoritative when both define the same key.
+# This file documents the first-run choices the operator is expected to review.
+history_start: "2017-08-17T00:00:00Z"
+symbols:
+  - BTCUSDT
+  - ETHUSDT
+intervals:
+  - 1d
+supported_intervals:
+  - 1d
+  - 4h
+  - 1h
+exclude_open_candle: true
+notes: >
+  Daily bars are the v1 research interval. The ingestion and quality code accept 4h and 1h.
+  Those intervals are not downloaded unless market_data.intervals in app.yaml lists them.
+  An unclosed candle is stored for monitoring and is excluded from historical backtests.

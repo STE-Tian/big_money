@@ -1,0 +1,2 @@
+symbol,strategy_id,side,signal_time,fill_time,raw_open,fill_price,quantity,fee,slippage_cost,target_weight,cash_after,quantity_after
+BTCUSDT,buy_and_hold,BUY,,2025-01-18T00:00:00+00:00,104077.47000000,104129.508735000000,0.09593831,9.99000908916613785000000,4.99250829043785000000,1,0.00090174469601215000000,0.09593831

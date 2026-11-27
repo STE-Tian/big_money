@@ -1,0 +1,2 @@
+symbol,strategy_id,side,signal_time,fill_time,raw_open,fill_price,quantity,fee,slippage_cost,target_weight,cash_after,quantity_after
+ETHUSDT,buy_and_hold,BUY,,2017-08-17T00:00:00+00:00,301.13000000,301.280565000000,33.15849460,9.99000998763744900000000,4.99250873944900000000,1,0.00000237491355100000000,33.15849460

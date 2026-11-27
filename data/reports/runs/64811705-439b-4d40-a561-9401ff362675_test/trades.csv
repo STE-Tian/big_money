@@ -1,0 +1,2 @@
+symbol,strategy_id,side,signal_time,fill_time,raw_open,fill_price,quantity,fee,slippage_cost,target_weight,cash_after,quantity_after
+ETHUSDT,buy_and_hold,BUY,,2025-01-18T00:00:00+00:00,3473.64000000,3475.376820000000,2.87451131,9.99000997560183420000000,4.99250873343420000000,1,0.00001442256396580000000,2.87451131
