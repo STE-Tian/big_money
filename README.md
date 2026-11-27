@@ -6,6 +6,8 @@ Personal Quant AI is a local research workbench for Binance Spot public market d
 
 默认 `TRADING_MODE=research`。公开行情不需要 API Key，也不要填写 API Secret。
 
+V1 仍是传统策略基线：日线、收盘发信号、下一根开盘成交。Big Money V2 的正式规格在 [`docs/V2_SPEC.md`](docs/V2_SPEC.md)。当前代码只增加了 V2 的 P1 数据层（1h/4h 现货与资金费率特征）。P2–P6 的模型、仓位、PBO/DSR、Agent 扩展和模拟盘没有实现。资金费率只作为研究特征，不交易永续合约。
+
 ## 环境
 
 - Python 3.11 或 3.12
@@ -81,6 +83,30 @@ uv run streamlit run src/pquant/dashboard/app.py
 未收盘 K 线不进入历史回测。缺失 K 线不会用未来数据填补。Train / Validation / Test 按时间顺序切分，不随机打乱。
 
 `CANDIDATE_FOR_PAPER` 只表示可以继续用模拟账户观察。它不是实盘许可，也不表示未来能够盈利。
+
+## Big Money V2 P1
+
+V1 的 `configs/app.yaml` 仍然只采集日线。V2 使用 `configs/v2_data.yaml`：默认研究模式，`LIVE` 关闭，不需要 API Secret。窗口长度写在该文件的 `features.windows` 里。
+
+规格、特征公式、锁定约束和尚未实现的 P2–P6 见 [`docs/V2_SPEC.md`](docs/V2_SPEC.md)。
+
+下面三组命令在 Windows PowerShell、CMD 和 Linux 上相同，只是换行符不同。先进入仓库根目录。`--start` 含该开盘时间，`--end` 不含该开盘时间，并且必须落在 1h 与 4h 的 UTC 边界上。
+
+```powershell
+uv run python scripts/collect_v2.py --start 2026-10-01T00:00:00Z --end 2026-11-01T00:00:00Z
+uv run python scripts/validate_v2.py
+uv run python scripts/build_v2_features.py
+```
+
+- `collect_v2.py` 从 `data.binance.vision` 读取现货 K 线月度/日度档案和 USD-M 资金费率月度档案，并校验 SHA-256。现货缺口或较短窗口会再用 `data-api.binance.vision` 的公开 K 线交叉核对。资金费率查询只调用 `GET /fapi/v1/fundingRate`。
+- `validate_v2.py` 根据本地 Parquet 重算质量报告。
+- `build_v2_features.py` 生成点时刻特征。1d 相对强弱来自六根已收盘 4h K 线，不覆盖 V1 日线文件。
+
+未收盘 K 线不进入特征。缺失 bar 不填补。特征在该 bar 收盘时才可用。HTTP 451 会记入报告，程序不会用代理绕过。若资金费率 REST 不可用，但已发布档案覆盖窗口，则使用档案。
+
+原始 Parquet 在 `data/parquet/`，不提交。行数、校验和、数据集哈希与质量结论在 `data/reports/v2/p1_manifest.json`。2026-10 这一个窗口是流水线验收样本，不是全历史，也不是 V2 的未触碰测试集。
+
+V1 日线回测命令保持原样，不需要先跑 V2。
 
 ## 测试
 

@@ -13,5 +13,8 @@ supported_intervals:
 exclude_open_candle: true
 notes: >
   Daily bars are the v1 research interval. The ingestion and quality code accept 4h and 1h.
-  Those intervals are not downloaded unless market_data.intervals in app.yaml lists them.
-  An unclosed candle is stored for monitoring and is excluded from historical backtests.
+  Those intervals are not downloaded by the v1 command unless market_data.intervals in
+  app.yaml lists them. V2 P1 collects 1h and 4h through configs/v2_data.yaml and
+  scripts/collect_v2.py without changing this daily default.
+  An unclosed candle is stored for monitoring and is excluded from historical backtests
+  and from V2 research features.

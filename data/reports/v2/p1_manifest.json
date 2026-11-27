@@ -1,0 +1,294 @@
+{
+  "collect": {
+    "stage": "collect",
+    "generated_at": "2026-11-27T07:00:58.888919+00:00",
+    "window_start": "2026-10-01T00:00:00+00:00",
+    "window_end": "2026-11-01T00:00:00+00:00",
+    "server_time": "2026-11-27T07:00:58.811000+00:00",
+    "trading_mode": "research",
+    "live_trading_enabled": false,
+    "funding_tradable": false,
+    "spot": [
+      {
+        "symbol": "BTCUSDT",
+        "interval": "1h",
+        "rows_stored": 744,
+        "closed_rows": 744,
+        "open_rows": 0,
+        "quality_status": "qualified",
+        "dataset_hash": "c15e7215ac408cb81aaab80b807f3989282d6f25aa8f065255a4a3c78ec8496e",
+        "missing_count": 0,
+        "revised_against_archive": 0,
+        "archive_files": [
+          {
+            "path": "/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2026-10.zip",
+            "sha256": "da174c1563c8436f1700be3587800376f6edadfa12e28a142ac8a5dc53f2d1a3",
+            "checksum_verified": true,
+            "kind": "monthly"
+          }
+        ],
+        "rest_error": null,
+        "reasons": [],
+        "market_type": "spot"
+      },
+      {
+        "symbol": "BTCUSDT",
+        "interval": "4h",
+        "rows_stored": 186,
+        "closed_rows": 186,
+        "open_rows": 0,
+        "quality_status": "qualified",
+        "dataset_hash": "5c414c526bb27956437cb0e3b7e1edf5ba20adfc1c0ea5592987b38dd5128c0c",
+        "missing_count": 0,
+        "revised_against_archive": 0,
+        "archive_files": [
+          {
+            "path": "/data/spot/monthly/klines/BTCUSDT/4h/BTCUSDT-4h-2026-10.zip",
+            "sha256": "5db9ba6b00d5c602f45d7a4d86aa624f16e8144b9bf792695f6ff920abf34076",
+            "checksum_verified": true,
+            "kind": "monthly"
+          }
+        ],
+        "rest_error": null,
+        "reasons": [],
+        "market_type": "spot"
+      },
+      {
+        "symbol": "ETHUSDT",
+        "interval": "1h",
+        "rows_stored": 744,
+        "closed_rows": 744,
+        "open_rows": 0,
+        "quality_status": "qualified",
+        "dataset_hash": "c83ee24ae8c368679fc9ea416e9ee3d0617ce01e34c99b48d5b9c3e1c3b6255a",
+        "missing_count": 0,
+        "revised_against_archive": 0,
+        "archive_files": [
+          {
+            "path": "/data/spot/monthly/klines/ETHUSDT/1h/ETHUSDT-1h-2026-10.zip",
+            "sha256": "1d89c6824d40f6a14f25df6e5a6a3e7f0710990f60c219d78b934446d44ce398",
+            "checksum_verified": true,
+            "kind": "monthly"
+          }
+        ],
+        "rest_error": null,
+        "reasons": [],
+        "market_type": "spot"
+      },
+      {
+        "symbol": "ETHUSDT",
+        "interval": "4h",
+        "rows_stored": 186,
+        "closed_rows": 186,
+        "open_rows": 0,
+        "quality_status": "qualified",
+        "dataset_hash": "7484578729b1885b7dda8dabb73a477a9bee09193fd99e28a1ea98557d61703f",
+        "missing_count": 0,
+        "revised_against_archive": 0,
+        "archive_files": [
+          {
+            "path": "/data/spot/monthly/klines/ETHUSDT/4h/ETHUSDT-4h-2026-10.zip",
+            "sha256": "6f21cfa1acf84efb6c124d4795c843bfa0d2d8deddcf2ef585d5ee88987c5e6d",
+            "checksum_verified": true,
+            "kind": "monthly"
+          }
+        ],
+        "rest_error": null,
+        "reasons": [],
+        "market_type": "spot"
+      }
+    ],
+    "funding": [
+      {
+        "symbol": "BTCUSDT",
+        "rows": 93,
+        "window_rows": 93,
+        "duplicate_rows": 0,
+        "gap_count": 0,
+        "dataset_hash": "c3e6f64fc1ba3be8a72072a9412630ab8bc936822627901547299dfe7dd2d1e4",
+        "tradable": false,
+        "research_feature_only": true,
+        "status": "qualified",
+        "reasons": [],
+        "first_funding_time": "2026-10-01T00:00:00.001000+00:00",
+        "last_funding_time": "2026-10-31T16:00:00+00:00",
+        "revised_against_archive": 0,
+        "archive_files": [
+          {
+            "path": "/data/futures/um/monthly/fundingRate/BTCUSDT/BTCUSDT-fundingRate-2026-10.zip",
+            "sha256": "9c09b0bc6d8a57da06c34ec41add7dc9917dcb45dd83f7393ab0b3c2a2c34e5e",
+            "checksum_verified": true
+          }
+        ],
+        "rest_error": "HTTP 451 from fapi.binance.com fundingRate. Public funding REST is unavailable from this location. The collector does not bypass that restriction. Published data.binance.vision fundingRate archives are used when they exist.",
+        "market_type": "usd_m_perpetual",
+        "note": "Funding-rate history is a research feature only. It is not a traded symbol, and this pipeline does not place perpetual orders."
+      },
+      {
+        "symbol": "ETHUSDT",
+        "rows": 93,
+        "window_rows": 93,
+        "duplicate_rows": 0,
+        "gap_count": 0,
+        "dataset_hash": "6321b3ed7f100dfe884f1124a7e58cb6c1f1925b6fe0100173939f8d6f664373",
+        "tradable": false,
+        "research_feature_only": true,
+        "status": "qualified",
+        "reasons": [],
+        "first_funding_time": "2026-10-01T00:00:00.001000+00:00",
+        "last_funding_time": "2026-10-31T16:00:00+00:00",
+        "revised_against_archive": 0,
+        "archive_files": [
+          {
+            "path": "/data/futures/um/monthly/fundingRate/ETHUSDT/ETHUSDT-fundingRate-2026-10.zip",
+            "sha256": "3aa5114f2e35dfd597354417de9bdb4622bf41e91e667169bd5366e6246e85bc",
+            "checksum_verified": true
+          }
+        ],
+        "rest_error": "HTTP 451 from fapi.binance.com fundingRate. Public funding REST is unavailable from this location. The collector does not bypass that restriction. Published data.binance.vision fundingRate archives are used when they exist.",
+        "market_type": "usd_m_perpetual",
+        "note": "Funding-rate history is a research feature only. It is not a traded symbol, and this pipeline does not place perpetual orders."
+      }
+    ]
+  },
+  "updated_at": "2026-11-27T07:03:13.197196+00:00",
+  "live_trading_enabled": false,
+  "funding_tradable": false,
+  "validate": {
+    "stage": "validate",
+    "generated_at": "2026-11-27T07:03:12.431453+00:00",
+    "ok": true,
+    "spot": [
+      {
+        "symbol": "BTCUSDT",
+        "interval": "1h",
+        "status": "qualified",
+        "dataset_hash": "c15e7215ac408cb81aaab80b807f3989282d6f25aa8f065255a4a3c78ec8496e",
+        "closed_rows": 744,
+        "open_rows": 0,
+        "missing_count": 0,
+        "reasons": []
+      },
+      {
+        "symbol": "BTCUSDT",
+        "interval": "4h",
+        "status": "qualified",
+        "dataset_hash": "5c414c526bb27956437cb0e3b7e1edf5ba20adfc1c0ea5592987b38dd5128c0c",
+        "closed_rows": 186,
+        "open_rows": 0,
+        "missing_count": 0,
+        "reasons": []
+      },
+      {
+        "symbol": "ETHUSDT",
+        "interval": "1h",
+        "status": "qualified",
+        "dataset_hash": "c83ee24ae8c368679fc9ea416e9ee3d0617ce01e34c99b48d5b9c3e1c3b6255a",
+        "closed_rows": 744,
+        "open_rows": 0,
+        "missing_count": 0,
+        "reasons": []
+      },
+      {
+        "symbol": "ETHUSDT",
+        "interval": "4h",
+        "status": "qualified",
+        "dataset_hash": "7484578729b1885b7dda8dabb73a477a9bee09193fd99e28a1ea98557d61703f",
+        "closed_rows": 186,
+        "open_rows": 0,
+        "missing_count": 0,
+        "reasons": []
+      }
+    ],
+    "funding": [
+      {
+        "symbol": "BTCUSDT",
+        "rows": 93,
+        "window_rows": 93,
+        "duplicate_rows": 0,
+        "gap_count": 0,
+        "dataset_hash": "c3e6f64fc1ba3be8a72072a9412630ab8bc936822627901547299dfe7dd2d1e4",
+        "tradable": false,
+        "research_feature_only": true,
+        "status": "qualified",
+        "reasons": [],
+        "first_funding_time": "2026-10-01T00:00:00.001000+00:00",
+        "last_funding_time": "2026-10-31T16:00:00+00:00"
+      },
+      {
+        "symbol": "ETHUSDT",
+        "rows": 93,
+        "window_rows": 93,
+        "duplicate_rows": 0,
+        "gap_count": 0,
+        "dataset_hash": "6321b3ed7f100dfe884f1124a7e58cb6c1f1925b6fe0100173939f8d6f664373",
+        "tradable": false,
+        "research_feature_only": true,
+        "status": "qualified",
+        "reasons": [],
+        "first_funding_time": "2026-10-01T00:00:00.001000+00:00",
+        "last_funding_time": "2026-10-31T16:00:00+00:00"
+      }
+    ]
+  },
+  "features": {
+    "stage": "features",
+    "generated_at": "2026-11-27T07:03:12.930059+00:00",
+    "feature_set_version": "v2.p1",
+    "config_hash": "dc58ca45d17f03cefc7701ee7a4565217721a774a52ec711b3e38b9918a1ae42",
+    "feature_hash": "b34e5996d674640bd0a339cb9d15c967a0ac88290bff4372fd4498ac49ea6267",
+    "dropped_unclosed": {
+      "BTCUSDT_1h": 0,
+      "ETHUSDT_1h": 0,
+      "BTCUSDT_4h": 0,
+      "ETHUSDT_4h": 0,
+      "BTCUSDT_1d": 0,
+      "ETHUSDT_1d": 0
+    },
+    "derived_1d_rows": {
+      "BTCUSDT": 31,
+      "ETHUSDT": 31
+    },
+    "features": [
+      {
+        "symbol": "BTCUSDT",
+        "interval": "1d",
+        "rows": 31,
+        "path": "BTCUSDT_1d.parquet"
+      },
+      {
+        "symbol": "BTCUSDT",
+        "interval": "1h",
+        "rows": 744,
+        "path": "BTCUSDT_1h.parquet"
+      },
+      {
+        "symbol": "BTCUSDT",
+        "interval": "4h",
+        "rows": 186,
+        "path": "BTCUSDT_4h.parquet"
+      },
+      {
+        "symbol": "ETHUSDT",
+        "interval": "1d",
+        "rows": 31,
+        "path": "ETHUSDT_1d.parquet"
+      },
+      {
+        "symbol": "ETHUSDT",
+        "interval": "1h",
+        "rows": 744,
+        "path": "ETHUSDT_1h.parquet"
+      },
+      {
+        "symbol": "ETHUSDT",
+        "interval": "4h",
+        "rows": 186,
+        "path": "ETHUSDT_4h.parquet"
+      }
+    ],
+    "funding_tradable": false,
+    "v1_daily_path_written": false
+  },
+  "note": "V2 P1 research evidence. Parquet under data/parquet is gitignored. A bounded --start/--end window is an acceptance sample, not the full history. HTTP 451 from fapi.binance.com is recorded and not bypassed; published data.binance.vision fundingRate archives are used when they cover the window."
+}

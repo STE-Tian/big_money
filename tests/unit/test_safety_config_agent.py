@@ -39,7 +39,9 @@ def test_env_secret_is_not_loaded(tmp_path, monkeypatch):
     env_file = tmp_path / ".env"
     env_file.write_text("TRADING_MODE=paper\nBINANCE_API_SECRET=supersecretvalue123\n", encoding="utf-8")
     monkeypatch.delenv("BINANCE_API_SECRET", raising=False)
-    monkeypatch.delenv("TRADING_MODE", raising=False)
+    # setenv records a restore. delenv(raising=False) does not, so a later
+    # assignment would leak into the rest of the session.
+    monkeypatch.setenv("TRADING_MODE", "research")
     ignored = apply_env_allowlist(env_file)
     assert os.environ["TRADING_MODE"] == "paper"
     assert "BINANCE_API_SECRET" not in os.environ
