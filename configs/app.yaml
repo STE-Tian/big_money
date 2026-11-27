@@ -1,0 +1,74 @@
+app:
+  name: Personal Quant AI
+  environment: development
+  # research | paper | testnet. "live" is rejected by code.
+  trading_mode: research
+  # Hard-off switch. true is rejected at startup. LIVE cannot be enabled in v1.
+  live_trading_enabled: false
+  log_level: INFO
+
+market_data:
+  exchange: binance
+  market_type: spot
+  # Verified reachable on 2026-11-27. Official market-data-only host.
+  base_url: https://data-api.binance.vision
+  # Used only when the primary host has a transport error or HTTP 5xx.
+  fallback_base_url: https://api.binance.com
+  symbols:
+    - BTCUSDT
+    - ETHUSDT
+  # Data-layer code also accepts 4h and 1h. v1 default collection is daily.
+  intervals:
+    - 1d
+  # Explicit finite start. null refuses to download instead of pulling an unbounded range.
+  # 2017-08-17 is the first Binance Spot daily bar observed for BTCUSDT and ETHUSDT.
+  history_start: "2017-08-17T00:00:00Z"
+  exclude_open_candle: true
+  # Confirmed in Binance Spot REST docs (rest-api.md, Kline/Candlestick data) on 2026-11-27:
+  # limit default 500, maximum 1000. A live request with limit=1001 still returned 1000.
+  klines_limit: 1000
+  # Same document: GET /api/v3/klines weight is 2.
+  klines_request_weight: 2
+  request_timeout_seconds: 30
+  max_retries: 5
+  request_pause_seconds: 0.25
+  # exchangeInfo on 2026-11-27: REQUEST_WEIGHT 6000 / 1 minute.
+  request_weight_limit_per_minute: 6000
+
+backtest:
+  initial_cash: "10000"
+  quote_asset: USDT
+  annualization_days: 365
+  signal_execution: next_bar_open
+  default_fee_rate_per_side: "0.001"
+  default_slippage_rate_per_side: "0.0005"
+  # Research assumption. The report must state this. It is not a measured funding rate.
+  risk_free_rate: "0"
+  force_close_at_end: false
+
+validation:
+  train_ratio: "0.60"
+  validation_ratio: "0.20"
+  test_ratio: "0.20"
+  walk_forward_train_days: 365
+  walk_forward_preferred_train_days: 730
+  walk_forward_test_days: 90
+  walk_forward_step_days: 90
+  # Below this test-segment span, out-of-sample status is INSUFFICIENT_HISTORY.
+  minimum_test_days: 180
+  # Missing-bar ratio above this marks the dataset unqualified. Rows are never forward-filled.
+  max_missing_ratio: "0.01"
+
+safety:
+  allow_leverage: false
+  allow_short: false
+  allow_withdrawals: false
+  allow_live_orders: false
+  require_paper_mode_for_orders: true
+
+storage:
+  duckdb_path: data/duckdb/market.duckdb
+  sqlite_path: data/sqlite/research_trading.sqlite
+  parquet_dir: data/parquet
+  raw_dir: data/raw
+  reports_dir: data/reports

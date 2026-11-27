@@ -1,0 +1,47 @@
+# Secrets. Never commit real environment files or key material.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+.streamlit/secrets.toml
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Local databases, raw market data, and logs.
+# Reports under data/reports/ are evidence and may be committed.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/parquet/*
+!data/parquet/.gitkeep
+data/duckdb/*
+!data/duckdb/.gitkeep
+data/sqlite/*
+!data/sqlite/.gitkeep
+logs/*
+!logs/.gitkeep
+*.duckdb
+*.duckdb.wal
+*.sqlite
+*.sqlite3
+*.sqlite3-journal
+*.parquet
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

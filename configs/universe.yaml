@@ -1,0 +1,11 @@
+exchange: binance
+market_type: spot
+quote_asset: USDT
+symbols:
+  - symbol: BTCUSDT
+    base_asset: BTC
+    quote_asset: USDT
+  - symbol: ETHUSDT
+    base_asset: ETH
+    quote_asset: USDT
+# The agent and paper broker cannot add symbols that are not listed here.

@@ -1,0 +1,12 @@
+max_position_weight: "1"
+min_position_weight: "0"
+# Paper-only observation threshold. Crossing it records a risk event and does not submit an exchange order.
+max_drawdown_event: "0.20"
+allow_leverage: false
+allow_short: false
+allow_withdrawals: false
+allow_live_orders: false
+# Spot filters are refreshed from exchangeInfo when data is collected.
+# These are fallbacks used only when no instrument snapshot has been stored yet.
+fallback_qty_step: "0.00000001"
+fallback_min_notional: "5"
